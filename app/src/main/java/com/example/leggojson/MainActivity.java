@@ -61,28 +61,23 @@ public class MainActivity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
-
             Log.e(TAG, "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
                 try {
+
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONObject rates=jsonObj.getJSONObject("rates");
                     String base = jsonObj.getString("base");
-
-
                     // looping through All
                    for (int i = 0; i < rates.length(); i++) {
                        // tmp hash map for single contact
-                        HashMap<String, String> element = new HashMap<>();
-
+                       HashMap<String, String> element = new HashMap<>();
                         // adding each child node to HashMap key => value
+                       Log.d("cazzo","sesso"+rates.getDouble("SEK"));
                        element.put("base", base);
-                       element.put("email", jsonObj.getString("SEK"));
-
-
                         // adding contact to contact list
-                       // contactList.add(element);
+                       contactList.add(element);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
